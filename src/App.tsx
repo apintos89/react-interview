@@ -1,11 +1,16 @@
-import logo from 'assets/logo.png'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { TodoLists } from "./pages/TodoLists";
+import { ListItems } from "./pages/ListItems";
 
 function App() {
   return (
-    <>
-      <image scale={logo} />
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<TodoLists />} />
+        <Route path="/list/:listId" element={<ListItems />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
