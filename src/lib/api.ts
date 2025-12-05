@@ -5,6 +5,8 @@ import type {
   UpdateTodoListDto,
   CreateTodoItemDto,
   UpdateTodoItemDto,
+  CompleteAllResponseDto,
+  JobStatus,
 } from "../types/todo";
 
 const API_BASE = "http://localhost:3000/api";
@@ -91,5 +93,27 @@ export const todoItemsApi = {
       method: "DELETE",
     });
     if (!res.ok) throw new Error("Failed to delete item");
+  },
+
+  completeAll: async (listId: string): Promise<CompleteAllResponseDto> => {
+    const res = await fetch(
+      `${API_BASE}/todoLists/${listId}/items/completeAll`,
+      {
+        method: "POST",
+      }
+    );
+    if (!res.ok) throw new Error("Failed to complete all items");
+    return res.json();
+  },
+
+  getJobStatus: async (
+    listId: string,
+    statusUrl: string
+  ): Promise<JobStatus> => {
+    const res = await fetch(
+      `${API_BASE}/todoLists/${listId}/items/${statusUrl}`
+    );
+    if (!res.ok) throw new Error("Failed to fetch job status");
+    return res.json();
   },
 };

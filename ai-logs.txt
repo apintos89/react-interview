@@ -1,0 +1,484 @@
+> Create the UI markup for a todo lists page using React and Tailwind CSS. I only need the JSX structure with styling, no functionality or state management.
+
+The page should have:
+
+1. Header section:
+   - Container with "Todo Lists" title 
+   - Subtitle
+   - "New List" button with Plus icon
+
+2. Empty state (shown when no lists):
+   - "No todo lists yet" message
+   - "Create Your First List" button with Plus icon
+
+3. Lists view (shown when lists exist):
+   - Vertical list of cards 
+   - Each card should be clickable
+
+4. Each card should have:
+   - Editable state showing input field with Save/Cancel buttons
+   - Normal state showing the list name as title
+   - Edit button (Pencil icon)
+   - Delete button (Trash icon)
+   - Buttons should be aligned to the right
+
+5. Editing mode inline (within the card)
+   - Error message placeholder 
+   - Save button 
+   - Cancel button
+
+Use shadcn/ui components: Card, CardHeader, CardTitle, Button, Input
+Use Lucide React icons: Plus, Pencil, Trash2
+
+
+Answer:
+
+import React from 'react';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Plus, Pencil, Trash2 } from 'lucide-react';
+
+const TodoListsPage = () => {
+  // Change this to toggle between empty state and lists view
+  const hasLists = true;
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-8">
+      <div className="max-w-4xl mx-auto">
+        {/* Header Section */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="text-4xl font-bold text-gray-900">Todo Lists</h1>
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+              <Plus className="w-4 h-4 mr-2" />
+              New List
+            </Button>
+          </div>
+          <p className="text-gray-600">Organize your tasks with custom lists</p>
+        </div>
+
+        {/* Empty State */}
+        {!hasLists && (
+          <div className="flex flex-col items-center justify-center py-16">
+            <div className="text-center">
+              <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                No todo lists yet
+              </h2>
+              <p className="text-gray-500 mb-6">
+                Get started by creating your first list
+              </p>
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                <Plus className="w-4 h-4 mr-2" />
+                Create Your First List
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {/* Lists View */}
+        {hasLists && (
+          <div className="space-y-4">
+            {/* Card - Normal State */}
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl font-semibold text-gray-900">
+                    Shopping List
+                  </CardTitle>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="hover:bg-gray-100"
+                    >
+                      <Pencil className="w-4 h-4 text-gray-600" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="hover:bg-red-50 hover:text-red-600"
+                    >
+                      <Trash2 className="w-4 h-4 text-gray-600" />
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+            </Card>
+
+            {/* Card - Editing State */}
+            <Card className="border-blue-500">
+              <CardHeader>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1 mr-4">
+                      <Input
+                        defaultValue="Work Tasks"
+                        className="text-xl font-semibold"
+                        placeholder="Enter list name"
+                      />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        size="sm"
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="hover:bg-gray-100"
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                  {/* Error message placeholder */}
+                  <p className="text-sm text-red-600 hidden">
+                    List name cannot be empty
+                  </p>
+                </div>
+              </CardHeader>
+            </Card>
+
+            {/* Additional Card Examples - Normal State */}
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl font-semibold text-gray-900">
+                    Personal Projects
+                  </CardTitle>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="hover:bg-gray-100"
+                    >
+                      <Pencil className="w-4 h-4 text-gray-600" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="hover:bg-red-50 hover:text-red-600"
+                    >
+                      <Trash2 className="w-4 h-4 text-gray-600" />
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+            </Card>
+
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl font-semibold text-gray-900">
+                    Reading List
+                  </CardTitle>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="hover:bg-gray-100"
+                    >
+                      <Pencil className="w-4 h-4 text-gray-600" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="hover:bg-red-50 hover:text-red-600"
+                    >
+                      <Trash2 className="w-4 h-4 text-gray-600" />
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+            </Card>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default TodoListsPage;
+
+> Create the UI markup for a todo list items page using React and Tailwind CSS. I only need the JSX structure with styling, no functionality or state management.
+
+The page should have:
+
+1. Header section:
+   - Container with todo list name as title 
+   - Subtitle
+   - "New Item" button with Plus icon
+
+2. Empty state (shown when no items):
+   - "No items yet" message
+   - "Add your first item" button with Plus icon
+
+3. Lists view (shown when items exist):
+   - Vertical list of items 
+
+4. Each card should have:
+   - Name of the item
+   - Delete button (Trash icon)
+   - Buttons should be aligned to the right
+
+Use shadcn/ui components: Card, CardHeader, CardTitle, Button
+Use Lucide React icons: Plus, Trash2
+
+import React from 'react';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Plus, Trash2 } from 'lucide-react';
+
+const TodoItemsPage = () => {
+  // Change this to toggle between empty state and items view
+  const hasItems = true;
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-8">
+      <div className="max-w-4xl mx-auto">
+        {/* Header Section */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="text-4xl font-bold text-gray-900">Shopping List</h1>
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+              <Plus className="w-4 h-4 mr-2" />
+              New Item
+            </Button>
+          </div>
+          <p className="text-gray-600">Manage your tasks and items</p>
+        </div>
+
+        {/* Empty State */}
+        {!hasItems && (
+          <div className="flex flex-col items-center justify-center py-16">
+            <div className="text-center">
+              <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                No items yet
+              </h2>
+              <p className="text-gray-500 mb-6">
+                Start adding items to your list
+              </p>
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                <Plus className="w-4 h-4 mr-2" />
+                Add your first item
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {/* Items View */}
+        {hasItems && (
+          <div className="space-y-3">
+            {/* Item Card 1 */}
+            <Card className="hover:shadow-md transition-shadow">
+              <CardHeader className="py-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg font-medium text-gray-900">
+                    Buy milk and eggs
+                  </CardTitle>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:bg-red-50 hover:text-red-600"
+                  >
+                    <Trash2 className="w-4 h-4 text-gray-600" />
+                  </Button>
+                </div>
+              </CardHeader>
+            </Card>
+
+            {/* Item Card 2 */}
+            <Card className="hover:shadow-md transition-shadow">
+              <CardHeader className="py-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg font-medium text-gray-900">
+                    Pick up dry cleaning
+                  </CardTitle>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:bg-red-50 hover:text-red-600"
+                  >
+                    <Trash2 className="w-4 h-4 text-gray-600" />
+                  </Button>
+                </div>
+              </CardHeader>
+            </Card>
+
+            {/* Item Card 3 */}
+            <Card className="hover:shadow-md transition-shadow">
+              <CardHeader className="py-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg font-medium text-gray-900">
+                    Call dentist for appointment
+                  </CardTitle>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:bg-red-50 hover:text-red-600"
+                  >
+                    <Trash2 className="w-4 h-4 text-gray-600" />
+                  </Button>
+                </div>
+              </CardHeader>
+            </Card>
+
+            {/* Item Card 4 */}
+            <Card className="hover:shadow-md transition-shadow">
+              <CardHeader className="py-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg font-medium text-gray-900">
+                    Review project proposal
+                  </CardTitle>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:bg-red-50 hover:text-red-600"
+                  >
+                    <Trash2 className="w-4 h-4 text-gray-600" />
+                  </Button>
+                </div>
+              </CardHeader>
+            </Card>
+
+            {/* Item Card 5 */}
+            <Card className="hover:shadow-md transition-shadow">
+              <CardHeader className="py-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg font-medium text-gray-900">
+                    Send birthday card to mom
+                  </CardTitle>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:bg-red-50 hover:text-red-600"
+                  >
+                    <Trash2 className="w-4 h-4 text-gray-600" />
+                  </Button>
+                </div>
+              </CardHeader>
+            </Card>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default TodoItemsPage;
+
+
+
+
+
+> I would like to change the alert messages and use a notification library like react-hot-toast instead to improve the UI. Keep toasts simple, some of them will need actions from the user like the confirmation toast for the Completing all items
+
+    Updated src/App.tsx with 2 additions                                
+    
+    import { BrowserRouter, Routes, Route } from "react-router-dom";
+    import { Toaster } from "react-hot-toast";
+    import { TodoLists } from "./pages/TodoLists";
+    import { ListItems } from "./pages/ListItems";
+
+    function App() {
+    return (
+        <BrowserRouter>
+        <Toaster position="top-right" />
+        <Routes>
+        <Route path="/" element={<TodoLists />} />
+        <Route path="/list/:listId" element={<ListItems />} 
+        />
+    )}
+
+    Updated src/components/CompleteAllButton.tsx
+       
+    import { CheckCheck, Loader2 } from "lucide-react";
+    import toast from "react-hot-toast";
+    import { Button } from "./ui/button";
+    import type { TodoItem } from "../types/todo";
+    import { useCompleteAllItems } from "@/hooks/useCompleteAllItems";
+     ...
+    
+           
+    const handleCompleteAll = async () => {
+        toast(
+            (t) => (
+                <div className="flex flex-col gap-3">
+                    <div>
+                     <p className="font-medium">Complete all 
+           items?</p>
+                     <p className="text-sm text-muted-foreground 
+           mt-1">
+                       This will complete all {pendingCount} pending 
+           items.
+                     </p>
+                   </div>
+                   <div className="flex gap-2">
+                     <Button
+                       size="sm"
+                       onClick={async () => {
+                         toast.dismiss(t.id);
+                         try {
+                           const response = await completeAllMutation.mutateAsync();
+                           onStartJob(response.statusUrl);
+                         } catch (error) {
+                           console.error("Error completing all 
+           items:", error);
+                           toast.error("Failed to start completion 
+           process");
+                         }
+                       }}
+                     >
+                       Confirm
+                     </Button>
+                     <Button
+                       size="sm"
+                       variant="outline"
+                       onClick={() => toast.dismiss(t.id)}
+                     >
+                       Cancel
+                     </Button>
+                   </div>
+                 </div>
+               ),
+               {
+                duration: 10000,
+                 icon: "❓",
+               }
+             );
+             };
+           
+             const isDisabled = completeAllMutation.isPending || 
+            isPolling;
+
+    Updated src/pages/ListItems.tsx
+
+       import { useState, useEffect } from "react";
+       import { useParams, useLocation } from "react-router-dom";
+       import toast from "react-hot-toast";
+       import { Card, CardContent } from "../components/ui/card";
+       import { TodoItemRow } from "../components/TodoItemRow";
+       import { CreateItemDialog } from "../components/CreateItemDialog";
+
+       const completedCount = result?.completed ?? 
+            pendingCount;
+       
+              toast.success(`Successfully completed ${completedCount} items!`);
+                setStatusUrl(null);
+               },
+               onFailed: async () => {
+                 removeActiveJob(listId!);
+           
+
+            toast.error("Failed to complete items. Please try again.");
+          
+                await queryClient.invalidateQueries({
+                queryKey: ["todo-list-items", listId],
+
+
+
+
+

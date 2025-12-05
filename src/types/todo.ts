@@ -40,3 +40,22 @@ export interface UpdateTodoItemDto {
 }
 
 export type CreateListFormData = z.infer<typeof createListSchema>;
+
+export interface CompleteAllResponseDto {
+  jobId: string;
+  statusUrl: string;
+  message: string;
+}
+
+export interface JobStatus {
+  id: string;
+  state: "waiting" | "active" | "completed" | "failed";
+  progress: number | { current: number; total: number };
+  result: { completed: number } | null;
+}
+
+export interface ActiveJob {
+  listId: string;
+  statusUrl: string;
+  startedAt: number;
+}

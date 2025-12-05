@@ -8,6 +8,7 @@ interface HeaderProps {
   buttonText: string;
   onButtonClick: (open: boolean) => void;
   hasBackNavigation?: boolean;
+  additionalActions?: React.ReactNode;
 }
 
 export function Header({
@@ -16,6 +17,7 @@ export function Header({
   buttonText,
   onButtonClick,
   hasBackNavigation,
+  additionalActions,
 }: HeaderProps) {
   const navigate = useNavigate();
   return (
@@ -35,6 +37,7 @@ export function Header({
               <p className="text-muted-foreground mt-1">{subtitle}</p>
             )}
           </div>
+          {additionalActions}
           <Button onClick={() => onButtonClick(true)}>
             <Plus className="h-4 w-4 mr-2" />
             {buttonText}
